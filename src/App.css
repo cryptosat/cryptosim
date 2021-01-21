@@ -7,6 +7,9 @@
   pointer-events: none;
 }
 
+        /*<img src={logo} className="App-logo" alt="logo" />*/
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -15,7 +18,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +38,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.WorldMap {
+  width: 100vw;
+  height: 28vw;
+}
+
+
+#console {
+  font-family: Courier;
+  background-color: #000000; 
+  color: #99ff00;
+  display:block; 
+  float:left;
+  width: 100vw;
+  height: 50vh;
+  text-align: left;
+  font-size: 0.5em;
+  padding-left: 10px;
+  overflow: scroll;
+}
+
+#commandline {
+  outline: 0px solid transparent;
+  width: 100vw;
 }

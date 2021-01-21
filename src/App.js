@@ -1,22 +1,37 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import Console from "./Console.js"
+import WorldMap from "./WorldMap.js"
 import './App.css';
 
 function App() {
-  return (
+  var ascii = [
+"           .       .                   .       .      .     .      ",
+"          .    .         .    .            .     ______            ",
+"      .           .             .               ////////           ",
+"                .    .   ________   .  .      /////////     .    . ",
+"           .            |.____.  /\        ./////////    .         ",
+"    .                 .//      \/  |\     /////////                ",
+"       .       .    .//          \ |  \ /////////       .     .   .",
+"                    ||.    .    .| |  ///////// .     .            ",
+"     .    .         ||           | |//`,/////                .     ",
+"             .       \\        ./ //  /  \/   .                    ",
+"  .                    \\.___./ //\` '   ,_\     .     .           ",
+"          .           .     \ //////\ , /   \                 .    ",
+"                       .    ///////// \|  '  |    .                ",
+"      .        .          ///////// .   \ _ /          .           ",
+"                        /////////                              .   ",
+"                 .   ./////////     .     .                        ",
+"         .           --------   .                  ..             .",
+"  .               .        .         .                       .     "].join('\n')
+return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Console>
+          {"Welcome to the Cryptosat Simulator v0.1!"}<br />&nbsp;
+          <code><pre>{ascii}</pre></code>
+          <br />Documentation: type "help"<br />&nbsp;<br />
+        </Console>
+        <WorldMap />
       </header>
     </div>
   );
