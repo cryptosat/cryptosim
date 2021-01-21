@@ -26,17 +26,13 @@ function App() {
   "  .               .        .         .                       .     "].join('\n')
 return (
     <div className="App">
-      <header className="App-header">
-        <div>
-          <Console>
-            {"Welcome to the Cryptosat Simulator v0.1!"}<br />&nbsp;
-            <code><pre>{ascii}</pre></code>
-            <br />Documentation: type "help"<br />&nbsp;<br />
-          </Console>
-          <DocumentationBar />
-        </div>
-        <WorldMap />
-      </header>
+      <DocumentationBar />
+      <Console>
+        {"Welcome to the Cryptosat Simulator v0.1!"}<br />&nbsp;
+        <code><pre>{ascii}</pre></code>
+        <br />Documentation: type "help"<br />&nbsp;<br />
+      </Console>
+      <WorldMap />
     </div>
   );
 }

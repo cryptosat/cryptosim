@@ -8,7 +8,7 @@ class DocumentationBar extends React.Component {
   }
 
   render() {
-    return <div id="documentationBar">Hello, world!</div>
+    return <div id="documentation">Hello, world!</div>
   }
 }
 

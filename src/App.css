@@ -16,13 +16,16 @@
   }
 }
 
-.App-header {
+.App {
   background-color: #282c34;
-  height: 50%;
+  height: 100vh;
   /*display: flex;*/
-  flex-direction: column;
+  /*flex-direction: column;*/
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 2px;
   align-items: center;
-  justify-content: center;
+  /*justify-content: center;*/
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -40,15 +43,11 @@
   }
 }
 
-.WorldMap {
-  width: 100vw;
-  height: 28vw;
-}
-
-#documentationbar {
+#documentation {
+  height: 100%;
   width: 50vw;
-  height: 50vh;
-  float:left;
+  grid-row-start: 1;
+  grid-row-end: 3;
 }
 
 
@@ -58,7 +57,7 @@
   color: #99ff00;
   display: block; 
   float:left;
-  width: 50vw;
+  width: 100%;
   height: 50vh;
   text-align: left;
   font-size: 0.5em;
@@ -66,7 +65,13 @@
   overflow: scroll;
 }
 
+#worldmap {
+  height: 50vh;
+  width: 50vw;
+}
+
+
 #commandline {
   outline: 0px solid transparent;
-  width: 100vw;
+  width: 50vw;
 }
