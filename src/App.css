@@ -19,7 +19,7 @@
 .App-header {
   background-color: #282c34;
   height: 50%;
-  display: flex;
+  /*display: flex;*/
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -45,14 +45,20 @@
   height: 28vw;
 }
 
+#documentationbar {
+  width: 50vw;
+  height: 50vh;
+  float:left;
+}
+
 
 #console {
   font-family: Courier;
   background-color: #000000; 
   color: #99ff00;
-  display:block; 
+  display: block; 
   float:left;
-  width: 100vw;
+  width: 50vw;
   height: 50vh;
   text-align: left;
   font-size: 0.5em;
