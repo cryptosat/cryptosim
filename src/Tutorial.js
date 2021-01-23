@@ -30,7 +30,7 @@ class Tutorial extends React.Component {
         </div>
         <div id="documentation-nav">
           <button>Previous</button>
-          <button style={{'float': 'right'}}>Next</button>
+          <button>Next</button>
         </div>
       </div>
     )

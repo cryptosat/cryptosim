@@ -7,9 +7,6 @@
   pointer-events: none;
 }
 
-        /*<img src={logo} className="App-logo" alt="logo" />*/
-
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -20,13 +17,10 @@
   background-color: #282c34;
   height: 100vh;
   width: 100vw;
-  /*display: flex;*/
-  /*flex-direction: column;*/
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 2px;
   align-items: center;
-  /*justify-content: center;*/
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -56,22 +50,30 @@
 }
 
 #documentation-content {
-  height: 90%;
 }
 
 #documentation-nav {
-  position: absolute;
-  bottom: 0px;
+  margin-top: 50px;
 }
 
 #documentation-nav button {
   background-color: rgb(50, 80, 168);
   padding: 10px;
   border-width: 0px;
-  margin: 10px;
+  margin-left: 0px;
+  min-width: 80px;
+  margin-right: 20px;
   color: rgb(240, 240, 240);
   border-radius: 2px;
   font-weight: bold;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
 }
 
 .terminal {
@@ -91,7 +93,6 @@
   color: #99ff00;
   display: block; 
   float:left;
-  /*width: 50vw;*/
   height: 50vh;
   text-align: left;
   font-size: 0.5em;
@@ -103,9 +104,7 @@
 
 #commandline {
   outline: 0px solid transparent;
-  /*width: 50vw;*/
 }
 
 #worldmap {
-  /*width: 50vw;*/
 }
