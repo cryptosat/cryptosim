@@ -19,6 +19,7 @@
 .App {
   background-color: #282c34;
   height: 100vh;
+  width: 100vw;
   /*display: flex;*/
   /*flex-direction: column;*/
   display: grid;
@@ -90,16 +91,21 @@
   color: #99ff00;
   display: block; 
   float:left;
-  width: 100%;
+  /*width: 50vw;*/
   height: 50vh;
   text-align: left;
   font-size: 0.5em;
   padding-left: 10px;
   overflow: scroll;
+  padding-right: 50px;
 }
 
 
 #commandline {
   outline: 0px solid transparent;
-  /*width: 100%;*/
+  /*width: 50vw;*/
+}
+
+#worldmap {
+  /*width: 50vw;*/
 }

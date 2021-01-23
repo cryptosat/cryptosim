@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import Console from "./Console.js"
-import DocumentationBar from "./DocumentationBar.js"
+import Tutorial from "./Tutorial.js"
 import WorldMap from "./WorldMap.js"
 import './App.css';
 
@@ -26,7 +26,7 @@ function App() {
   "  .               .        .         .                       .     "].join('\n')
 return (
     <div className="App">
-      <DocumentationBar />
+      <Tutorial />
       <Console>
         {"Welcome to the Cryptosat Simulator v0.1!"}<br />&nbsp;
         <code><pre>{ascii}</pre></code>

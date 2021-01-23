@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-class DocumentationBar extends React.Component {
+class Tutorial extends React.Component {
   constructor(props) {
     super(props);
     this.state = {}
@@ -11,7 +11,7 @@ class DocumentationBar extends React.Component {
     if (isCommand) {
       return <span className={'terminal'}>&nbsp;>&nbsp;{content}</span>
     } else {
-      return <span className={'terminal'}>{content}</span>
+      return <span className={'terminal'}>{content.replace('<br/>', '\n')}</span>
     }
   }
 
@@ -30,11 +30,11 @@ class DocumentationBar extends React.Component {
         </div>
         <div id="documentation-nav">
           <button>Previous</button>
-          <button>Next</button>
+          <button style={{'float': 'right'}}>Next</button>
         </div>
       </div>
     )
   }
 }
 
-export default DocumentationBar;
+export default Tutorial;
