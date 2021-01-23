@@ -26,7 +26,7 @@ class Tutorial extends React.Component {
           <p>To get started type <code>status</code> into the terminal:</p>
           {this.renderTerminal('status', true)}
           <p> The output you receive will look something like this:</p>
-          {this.renderTerminal('longitude: 123.1897\nlatitude: -75.12343')}
+          {this.renderTerminal('longitude: 123.1897\nlatitude: -75.12343\naltitude: 768128.334092')}
         </div>
         <div id="documentation-nav">
           <button>Previous</button>
