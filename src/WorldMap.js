@@ -2,6 +2,7 @@ import worldGraphic from './world.png'
 import satelliteGraphic from './satellite.png'
 import React from 'react';
 
+// Explore this library: https://github.com/Flowm/satvis/
 class WorldMap extends React.Component {
 
   constructor(props) {
@@ -36,7 +37,7 @@ class WorldMap extends React.Component {
     const canvas = this.canvas.current;
     if (!canvas || !this.state.worldImageReady || !this.state.satelliteImageReady) return; // not loaaded
     const ctx = canvas.getContext('2d');
-    const Tsec = 60;
+    const Tsec = 10;
     const width = this.worldImage.naturalWidth * this.worldImageScale; // canvas.width;
     const height = this.worldImage.naturalHeight * this.worldImageScale;  // canvas.height;
     const satelliteWidth = 100;

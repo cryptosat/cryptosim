@@ -48,6 +48,39 @@
   width: 50vw;
   grid-row-start: 1;
   grid-row-end: 3;
+  padding-top: 50px;
+  padding-left: 20px;
+  font-size: 12px;
+  text-align: left;
+}
+
+#documentation-content {
+  height: 90%;
+}
+
+#documentation-nav {
+  position: absolute;
+  bottom: 0px;
+}
+
+#documentation-nav button {
+  background-color: rgb(50, 80, 168);
+  padding: 10px;
+  border-width: 0px;
+  margin: 10px;
+  color: rgb(240, 240, 240);
+  border-radius: 2px;
+  font-weight: bold;
+}
+
+.terminal {
+  font-family: Courier;
+  background-color: #000000; 
+  color: #99ff00;
+  display: block; 
+  text-align: left;
+  padding: 8px;
+  width: 80%;
 }
 
 
@@ -65,13 +98,8 @@
   overflow: scroll;
 }
 
-#worldmap {
-  height: 50vh;
-  width: 50vw;
-}
-
 
 #commandline {
   outline: 0px solid transparent;
-  width: 50vw;
+  /*width: 100%;*/
 }
