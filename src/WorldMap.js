@@ -1,6 +1,15 @@
 import worldGraphic from './world.png'
 import satelliteGraphic from './satellite.png'
 import React from 'react';
+import mapboxgl from 'mapbox-gl';
+import './Map.css'
+
+
+// mapboxgl.accessToken = Config.mapboxglAccessToken;
+mapboxgl.accessToken =
+  'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
+
+
 
 // Explore this library: https://github.com/Flowm/satvis/
 class WorldMap extends React.Component {
@@ -8,8 +17,10 @@ class WorldMap extends React.Component {
   constructor(props) {
     super(props);
     this.canvas = React.createRef();
+    this.mapContainer = React.createRef();
     this.state = { width: 0, height: 0, start: Date.now(), elapsed: 0,
-                   worldImageReady: false, satelliteImageReady: false };
+                   worldImageReady: false, satelliteImageReady: false,
+                   lng: 5, lat: 34, zoom: 1};
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.worldImage = new Image();
     this.worldImage.src = worldGraphic;
@@ -19,18 +30,31 @@ class WorldMap extends React.Component {
   }
 
   componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-    this.timer = setInterval(() => {
-      this.setState({elapsedSeconds: (Date.now() - this.state.start) / 1000});
-      this.draw();
-    }, 0.25);
-    this.worldImage.addEventListener('load', function() {
-      this.setState({'worldImageReady': true});
-    }.bind(this), false);
-    this.satelliteImage.addEventListener('load', function() {
-      this.setState({'satelliteImageReady': true});
-    }.bind(this), false);
+    // this.updateWindowDimensions();
+
+  const map = new mapboxgl.Map({
+    container: this.mapContainer.current,
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [this.state.lng, this.state.lat],
+    zoom: this.state.zoom
+  });
+
+  map.on('load', function () {
+    map.resize();
+  });
+
+
+    // window.addEventListener('resize', this.updateWindowDimensions);
+    // this.timer = setInterval(() => {
+    //   this.setState({elapsedSeconds: (Date.now() - this.state.start) / 1000});
+    //   this.draw();
+    // }, 0.25);
+    // this.worldImage.addEventListener('load', function() {
+    //   this.setState({'worldImageReady': true});
+    // }.bind(this), false);
+    // this.satelliteImage.addEventListener('load', function() {
+    //   this.setState({'satelliteImageReady': true});
+    // }.bind(this), false);
   }
 
   draw() {
@@ -91,10 +115,14 @@ class WorldMap extends React.Component {
   
   render() {
     return(
-      <div id='worldmap'>
+      <div ref={this.mapContainer} className='map-container' />
+      )
+      {/*<div id='worldmap'>
+        <div className='sidebarStyle'>
+          <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
+        </div>
         <canvas ref={this.canvas} width={this.state.width / 2} height={this.state.height}/>
-      </div>
-    )
+      </div>*/}
   }
 }
 
