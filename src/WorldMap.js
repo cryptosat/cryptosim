@@ -10,6 +10,10 @@ import Orbit from './Orbit.js'
 mapboxgl.accessToken =
   'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
 
+function extractLatLngFromTrajectory(t) {
+  return t.map(pos => [pos.longitude, pos.latitude]);
+}
+
 // Explore this library: https://github.com/Flowm/satvis/
 class WorldMap extends React.Component {
 
@@ -50,6 +54,63 @@ class WorldMap extends React.Component {
     map.on('load', function () {
       map.resize();
       this.satelliteMarker.setLngLat(latlng).addTo(map);
+      var [past_trajectory, future_trajectory] = this.orbit.getTrajectory(d);
+      past_trajectory = extractLatLngFromTrajectory(past_trajectory);
+      future_trajectory = extractLatLngFromTrajectory(future_trajectory);
+      map.addSource('past_route', {
+        'type': 'geojson',
+        'data': {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': {
+            'type': 'LineString',
+            'coordinates': past_trajectory,
+          }
+        }
+      });
+
+      map.addSource('future_route', {
+        'type': 'geojson',
+        'data': {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': {
+            'type': 'LineString',
+            'coordinates': future_trajectory,
+          }
+        }
+      });
+
+      map.addLayer({
+          'id': 'past_route',
+          'type': 'line',
+          'source': 'past_route',
+          'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        'paint': {
+          'line-color': '#888',
+          'line-width': 4,
+          'line-opacity': 0.8,
+        }
+      });
+
+
+      map.addLayer({
+          'id': 'future_route',
+          'type': 'line',
+          'source': 'future_route',
+          'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        'paint': {
+          'line-color': '#888',
+          'line-width': 4,
+         'line-opacity': 0.25,
+        }
+      });
     }.bind(this));
 
     this.timer = setInterval(() => {
