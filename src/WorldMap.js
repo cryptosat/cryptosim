@@ -4,6 +4,7 @@ import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import './Map.css'
 import Orbit from './Orbit.js' 
+import PulsingDot from './PulsingDot';
 
 
 // mapboxgl.accessToken = Config.mapboxglAccessToken;
@@ -64,7 +65,20 @@ class WorldMap extends React.Component {
     const latlng = new mapboxgl.LngLat(
       coordinates.longitude,
       coordinates.latitude);
-    this.satelliteMarker.setLngLat(latlng).addTo(this.map);
+
+    this.map.getSource('points').setData({
+      'type': 'FeatureCollection',
+      'features': [
+        {
+          'type': 'Feature',
+          'geometry': {
+          'type': 'Point',
+          'coordinates': [coordinates.longitude, coordinates.latitude],
+        }
+      }]
+    }); 
+
+    // this.satelliteMarker.setLngLat(latlng).addTo(this.map);
 
 
     var [past_trajectory, future_trajectory] = this.orbit.getTrajectory(d);
@@ -157,6 +171,33 @@ class WorldMap extends React.Component {
           'line-color': '#888',
           'line-width': 3,
          'line-opacity': 0.25,
+        }
+      });
+
+      this.map.addImage('pulsing-dot', new PulsingDot(100, this.map), { pixelRatio: 2 });
+
+      this.map.addSource('points', {
+        'type': 'geojson',
+        'data': {
+          'type': 'FeatureCollection',
+          'features': [
+            {
+              'type': 'Feature',
+              'geometry': {
+                'type': 'Point',
+                'coordinates': [0, 0]
+              }
+            }
+          ]
+        }
+      });
+    
+      this.map.addLayer({
+        'id': 'points',
+        'type': 'symbol',
+        'source': 'points',
+        'layout': {
+          'icon-image': 'pulsing-dot'
         }
       });
 
