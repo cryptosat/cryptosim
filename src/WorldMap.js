@@ -22,14 +22,19 @@ class WorldMap extends React.Component {
     this.orbit = new Orbit(
       '1 25544U 98067A   21027.77992426  .00003336  00000-0  68893-4 0  9991',
       '2 25544  51.6465 317.1909 0002399 302.6503 164.1536 15.48908950266831');
+    const d = new Date();
+    const coordinates = this.orbit.getPosition(d);
     this.canvas = React.createRef();
-    this.mapContainer = React.createRef();
+    this.mapRef = React.createRef();
     var markerElement = document.createElement('div');
     markerElement.className = 'satellite-marker';
     this.satelliteMarker = new mapboxgl.Marker(markerElement);
     this.state = { width: 0, height: 0, start: Date.now(), elapsed: 0,
                    worldImageReady: false, satelliteImageReady: false,
-                   lng: 5, lat: 34, zoom: 1};
+                   lng: coordinates.longitude, lat: coordinates.latitude,
+                   zoom: 1, playbackSpeed: 1,
+                   isPlaying: true, initialTimestamp: new Date(),
+                   elapsedSeconds: 0, lastTimestamp: new Date()};
     this.worldImage = new Image();
     this.worldImage.src = worldGraphic;
     this.worldImageScale = 0.5;
@@ -37,51 +42,94 @@ class WorldMap extends React.Component {
     this.satelliteImage.src = satelliteGraphic;
   }
 
+
+  animateSatellite() {
+    const now = new Date();
+    const lastTimestamp = this.state.lastTimestamp; 
+    this.setState({lastTimestamp: now});
+    if (!this.state.isPlaying) {
+      requestAnimationFrame(this.animateSatellite.bind(this));
+      return;
+    }
+    const additionalSeconds = (now - lastTimestamp) / 1000;
+    const elapsedSeconds = this.state.elapsedSeconds + 
+      additionalSeconds * this.state.playbackSpeed; 
+    // console.log('elapsed: ' + elapsedMs / 1000);
+    // console.log('timestamp: ' + timestamp / 1000);
+     // + elapsedMs / 1000);
+    this.setState({elapsedSeconds: elapsedSeconds});
+    var d = new Date();
+    d.setSeconds(this.state.initialTimestamp.getSeconds() + elapsedSeconds);
+    const coordinates = this.orbit.getPosition(d);
+    const latlng = new mapboxgl.LngLat(
+      coordinates.longitude,
+      coordinates.latitude);
+    this.satelliteMarker.setLngLat(latlng).addTo(this.map);
+
+
+    var [past_trajectory, future_trajectory] = this.orbit.getTrajectory(d);
+    past_trajectory = extractLatLngFromTrajectory(past_trajectory);
+    future_trajectory = extractLatLngFromTrajectory(future_trajectory);
+
+    var past_source = this.map.getSource('past_route');
+    past_source.setData({
+      'type': 'Feature',
+      'properties': {},
+      'geometry': {
+        'type': 'LineString',
+        'coordinates': past_trajectory,
+      }
+    });
+    var future_source = this.map.getSource('future_route');
+    future_source.setData({
+      'type': 'Feature',
+      'properties': {},
+      'geometry': {
+        'type': 'LineString',
+        'coordinates': future_trajectory,
+      }
+    });
+
+    // Request the next frame of the animation.
+    requestAnimationFrame(this.animateSatellite.bind(this));
+  }
+
   componentDidMount() {
-    const map = new mapboxgl.Map({
-      container: this.mapContainer.current,
+    this.map = new mapboxgl.Map({
+      container: this.mapRef.current,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [this.state.lng, this.state.lat],
       zoom: this.state.zoom
     });
 
-    var d = new Date();
-    // d.setSeconds(d.getSeconds() + 3600 * 4);
-    const coordinates = this.orbit.getPosition(d);
-    const latlng = new mapboxgl.LngLat(
-      coordinates.longitude,
-      coordinates.latitude);
-    map.on('load', function () {
-      map.resize();
-      this.satelliteMarker.setLngLat(latlng).addTo(map);
-      var [past_trajectory, future_trajectory] = this.orbit.getTrajectory(d);
-      past_trajectory = extractLatLngFromTrajectory(past_trajectory);
-      future_trajectory = extractLatLngFromTrajectory(future_trajectory);
-      map.addSource('past_route', {
+    this.map.on('load', function () {
+      this.map.resize();
+      var d = new Date();
+      this.map.addSource('past_route', {
         'type': 'geojson',
         'data': {
           'type': 'Feature',
           'properties': {},
           'geometry': {
             'type': 'LineString',
-            'coordinates': past_trajectory,
+            'coordinates': [],
           }
         }
       });
 
-      map.addSource('future_route', {
+      this.map.addSource('future_route', {
         'type': 'geojson',
         'data': {
           'type': 'Feature',
           'properties': {},
           'geometry': {
             'type': 'LineString',
-            'coordinates': future_trajectory,
+            'coordinates': [],
           }
         }
       });
 
-      map.addLayer({
+      this.map.addLayer({
           'id': 'past_route',
           'type': 'line',
           'source': 'past_route',
@@ -91,13 +139,13 @@ class WorldMap extends React.Component {
         },
         'paint': {
           'line-color': '#888',
-          'line-width': 4,
+          'line-width': 3,
           'line-opacity': 0.8,
         }
       });
 
 
-      map.addLayer({
+      this.map.addLayer({
           'id': 'future_route',
           'type': 'line',
           'source': 'future_route',
@@ -107,16 +155,20 @@ class WorldMap extends React.Component {
         },
         'paint': {
           'line-color': '#888',
-          'line-width': 4,
+          'line-width': 3,
          'line-opacity': 0.25,
         }
       });
+
+      // Start the animation.
+      this.animateSatellite(0);
     }.bind(this));
 
-    this.timer = setInterval(() => {
-      this.setState({elapsedSeconds: (Date.now() - this.state.start) / 1000});
-      // this.draw();
-    }, 0.25);
+
+    // this.timer = setInterval(() => {
+    //   this.setState({elapsedSeconds: (Date.now() - this.state.start) / 1000});
+    //   // this.draw();
+    // }, 0.25);
     this.worldImage.addEventListener('load', function() {
       this.setState({'worldImageReady': true});
     }.bind(this), false);
@@ -169,11 +221,29 @@ class WorldMap extends React.Component {
   //   ctx.fillText("Altitude: " + altitude, 10, height - textOffset + 2 * textSpacing);
   // }
 
+  toggleSpeed(e) {
+    var speed = this.state.playbackSpeed * 10;
+    if (speed > 1000) {
+      speed = 1;
+    } 
+    this.setState({'playbackSpeed': speed});
+  }
+
+  pausePlay(e) {
+    this.setState({'isPlaying': !this.state.isPlaying});
+  }
+
 
   render() {
     return(
-      <div ref={this.mapContainer} className='map-container' />
-      )
+      <div className='map-container'>
+        <div className='map-toolbar'>
+          <button onClick={this.toggleSpeed.bind(this)}>{this.state.playbackSpeed}x</button>
+          <button onClick={this.pausePlay.bind(this)}>{this.state.isPlaying ? 'Pause' : 'Play' }</button>
+        </div>
+        <div ref={this.mapRef} style={{'height': '100%'}}/>
+      </div>
+    )
       {/*<div id='worldmap'>
         <div className='sidebarStyle'>
           <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>

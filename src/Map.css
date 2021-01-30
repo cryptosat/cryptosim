@@ -26,3 +26,21 @@
   border-radius: 50%;
   cursor: pointer;
 }
+
+.map-toolbar {
+  height: 40px;
+  /*background-color: #4c0f80;*/
+  background-color: rgb(213, 185, 237);
+}
+
+.map-toolbar button {
+  background-color: rgb(50, 80, 168);
+  min-width: 20px;
+  padding: 5px;
+  border-width: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: rgb(240, 240, 240);
+  border-radius: 2px;
+  font-weight: bold;
+}
