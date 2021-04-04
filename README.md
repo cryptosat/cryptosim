@@ -1,8 +1,18 @@
-# Getting Started with Create React App
+# Cryptosat simulation ![Cryptosat logo](https://www.cryptosat.io/images/Logo.svg)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Our mission at [Cryptosat](cryptosat.io) is to build satellites that power cryptographic, blockchain and ledger applications. We believe that satellites possess unique properties that make them well suited for these tasks and by launching such computational platforms into space we can unlock new and exciting opportunities in the realm of security and crypto.
 
-## Available Scripts
+This repository contains a simulation library which simulates the operation of Cryptosat. This includes simulation of the satellite orbital trajectory and its position over time.
+As a developer, you can learn about the cryptographic functions our satellites will provide and start integrating your project and protocols with our APIs.
+When you (and Cryptosat) are ready - you can turn the switch to start communicating with the actual satellite.
+
+## Resources
+
+- [CoinTelegraph article about the Cryptosat project](https://cointelegraph.com/magazine/2020/12/22/moon-man-mission-to-blast-crypto-satellite-into-orbit)
+- [Cryptosat website](https://www.cryptosat.io)
+- [Whitepaper](https://export.arxiv.org/pdf/1710.01430)
+
+### Available Scripts
 
 In the project directory, you can run:
 
