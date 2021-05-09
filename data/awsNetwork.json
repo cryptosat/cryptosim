@@ -1,0 +1,216 @@
+{
+  "stations": [
+    {
+      "id": "aws/northern-california",
+      "position": {
+        "latitude": 37.2970523,
+        "longitude": -121.957497,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/oregon",
+      "position": {
+        "latitude": 45.835477,
+        "longitude": -119.3226366,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/ohio",
+      "position": {
+        "latitude": 40.3459169,
+        "longitude": -84.912388,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/northern-virginia",
+      "position": {
+        "latitude": 38.8808781,
+        "longitude": -77.1371755,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/canada-central",
+      "position": {
+        "latitude": 45.5581968,
+        "longitude": -73.8703856,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/sao-paulo",
+      "position": {
+        "latitude": -22.5255033,
+        "longitude": -50.8795282,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/cape-town",
+      "position": {
+        "latitude": -33.914651,
+        "longitude": 18.375877,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/milan",
+      "position": {
+        "latitude": 45.4022409,
+        "longitude": 8.8486633,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/frankfurt",
+      "position": {
+        "latitude": 50.1213479,
+        "longitude": 8.4964812,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/paris",
+      "position": {
+        "latitude": 48.8589507,
+        "longitude": 2.2770203,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/london",
+      "position": {
+        "latitude": 51.5287718,
+        "longitude": -0.241681,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/ireland",
+      "position": {
+        "latitude": 53.3244431,
+        "longitude": -6.3857862,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/stockholm",
+      "position": {
+        "latitude": 59.326242,
+        "longitude": 17.8419712,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/bahrain",
+      "position": {
+        "latitude": 25.941298,
+        "longitude": 50.3073873,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/mumbai",
+      "position": {
+        "latitude": 19.0825223,
+        "longitude": 72.7411007,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/singapore",
+      "position": {
+        "latitude": 1.3143394,
+        "longitude": 103.7041643,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/hong-kong",
+      "position": {
+        "latitude": 22.3529808,
+        "longitude": 113.9876148,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/ningxia",
+      "position": {
+        "latitude": 37.2931353,
+        "longitude": 103.7298558,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/beijing",
+      "position": {
+        "latitude": 39.9390731,
+        "longitude": 116.1172753,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/seoul",
+      "position": {
+        "latitude": 37.5652894,
+        "longitude": 126.849466,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/osaka",
+      "position": {
+        "latitude": 34.6777192,
+        "longitude": 135.4159974,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/tokyo",
+      "position": {
+        "latitude": 35.6684415,
+        "longitude": 139.6007835,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "aws/sydney",
+      "position": {
+        "latitude": -33.8473567,
+        "longitude": 150.6517923,
+        "altitude": 0
+      }
+    }
+  ],
+  "network": {
+    "id": "aws",
+    "stations": [
+      "aws/northern-california",
+      "aws/oregon",
+      "aws/ohio",
+      "aws/northern-virginia",
+      "aws/canada-central",
+      "aws/sao-paulo",
+      "aws/cape-town",
+      "aws/milan",
+      "aws/frankfurt",
+      "aws/paris",
+      "aws/london",
+      "aws/ireland",
+      "aws/stockholm",
+      "aws/bahrain",
+      "aws/mumbai",
+      "aws/singapore",
+      "aws/hong-kong",
+      "aws/ningxia",
+      "aws/beijing",
+      "aws/seoul",
+      "aws/osaka",
+      "aws/tokyo",
+      "aws/sydney"
+    ]
+  }
+}

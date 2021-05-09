@@ -1,0 +1,459 @@
+{
+  "stations": [
+    {
+      "id": "rbc/kapolei",
+      "position": {
+        "latitude": 21.3645171,
+        "longitude": -158.1641841,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/los-angeles",
+      "position": {
+        "latitude": 34.0207305,
+        "longitude": -118.6919186,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/morrow-county",
+      "position": {
+        "latitude": 45.4590837,
+        "longitude": -120.1364732,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/fairbanks",
+      "position": {
+        "latitude": 64.828421,
+        "longitude": -147.7390417,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/deadhorse",
+      "position": {
+        "latitude": 70.2001286,
+        "longitude": -148.4766536,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/inuvik",
+      "position": {
+        "latitude": 68.3462794,
+        "longitude": -133.7217618,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/happy-valley-goose-bay",
+      "position": {
+        "latitude": 53.343426,
+        "longitude": -60.5315356,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/windham",
+      "position": {
+        "latitude": 42.3144049,
+        "longitude": -74.2703195,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/columbus",
+      "position": {
+        "latitude": 39.9831302,
+        "longitude": -83.1309128,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/madison",
+      "position": {
+        "latitude": 43.0850975,
+        "longitude": -89.4764602,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/miami",
+      "position": {
+        "latitude": 25.7825453,
+        "longitude": -80.2994986,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/san-juan",
+      "position": {
+        "latitude": 18.3893875,
+        "longitude": -66.1305127,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/longovilo",
+      "position": {
+        "latitude": -33.9432739,
+        "longitude": -71.40262,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/balcarce",
+      "position": {
+        "latitude": -37.8672042,
+        "longitude": -58.3028611,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/mfuleni",
+      "position": {
+        "latitude": -34.0114697,
+        "longitude": 18.6709653,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/jos",
+      "position": {
+        "latitude": 9.9155163,
+        "longitude": 8.8032972,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/puertollano",
+      "position": {
+        "latitude": 38.6933013,
+        "longitude": -4.1383408,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/valladolid",
+      "position": {
+        "latitude": 41.7034259,
+        "longitude": -5.0889949,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/brest",
+      "position": {
+        "latitude": 48.4085509,
+        "longitude": -4.6396834,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/dublin",
+      "position": {
+        "latitude": 53.3238276,
+        "longitude": -6.8061039,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/courgenay",
+      "position": {
+        "latitude": 47.3925049,
+        "longitude": 7.0560354,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/milan",
+      "position": {
+        "latitude": 45.3985472,
+        "longitude": 8.0077929,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/pomjan",
+      "position": {
+        "latitude": 5.4960808,
+        "longitude": 13.7130389,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/ljubljana",
+      "position": {
+        "latitude": 46.0662515,
+        "longitude": 14.2519185,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/south-moravian",
+      "position": {
+        "latitude": 49.1067708,
+        "longitude": 14.3514979,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/tvarleden",
+      "position": {
+        "latitude": 59.639096,
+        "longitude": 16.5743065,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/kaunas",
+      "position": {
+        "latitude": 54.8900477,
+        "longitude": 23.6470877,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/moscow",
+      "position": {
+        "latitude": 55.5784659,
+        "longitude": 36.2645901,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/perm",
+      "position": {
+        "latitude": 58.0170151,
+        "longitude": 55.1133719,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/samara",
+      "position": {
+        "latitude": 53.2609904,
+        "longitude": 49.9179004,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/gobustan",
+      "position": {
+        "latitude": 40.4982453,
+        "longitude": 49.4778566,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/zallaq",
+      "position": {
+        "latitude": 26.0432208,
+        "longitude": 50.4641044,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/dubai",
+      "position": {
+        "latitude": 25.0742953,
+        "longitude": 54.6670807,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/bangalore",
+      "position": {
+        "latitude": 12.9533981,
+        "longitude": 77.0702426,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/hassan",
+      "position": {
+        "latitude": 13.012619,
+        "longitude": 76.0689643,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/karnatka",
+      "position": {
+        "latitude": 14.9728342,
+        "longitude": 71.8068703,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/lucknow",
+      "position": {
+        "latitude": 26.8484158,
+        "longitude": 80.6622725,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/jinghe",
+      "position": {
+        "latitude": 44.5777448,
+        "longitude": 81.652644,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/krasnoyarsk",
+      "position": {
+        "latitude": 56.0264119,
+        "longitude": 92.5855284,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/irkutsk",
+      "position": {
+        "latitude": 52.298004,
+        "longitude": 103.9869471,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/zhongwei",
+      "position": {
+        "latitude": 37.4945165,
+        "longitude": 105.0051858,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/haikou",
+      "position": {
+        "latitude": 20.0117253,
+        "longitude": 110.0379387,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/port-blair",
+      "position": {
+        "latitude": 11.6183236,
+        "longitude": 92.5819446,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/hsinchu",
+      "position": {
+        "latitude": 24.7834628,
+        "longitude": 120.8966402,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/taoyuan",
+      "position": {
+        "latitude": 24.8537641,
+        "longitude": 120.6715183,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/jiaxing",
+      "position": {
+        "latitude": 30.7440277,
+        "longitude": 120.4869752,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/jeju",
+      "position": {
+        "latitude": 33.5038303,
+        "longitude": 126.459957,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/gyeonggi",
+      "position": {
+        "latitude": 37.5930104,
+        "longitude": 125.9740514,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/harbin",
+      "position": {
+        "latitude": 45.7568874,
+        "longitude": 126.3718015,
+        "altitude": 0
+      }
+    },
+    {
+      "id": "rbc/magadan",
+      "position": {
+        "latitude": 59.5643502,
+        "longitude": 150.7010511,
+        "altitude": 0
+      }
+    }
+  ],
+  "network": {
+    "id": "rbc",
+    "stations": [
+      "rbc/kapolei",
+      "rbc/los-angeles",
+      "rbc/morrow-county",
+      "rbc/fairbanks",
+      "rbc/deadhorse",
+      "rbc/inuvik",
+      "rbc/happy-valley-goose-bay",
+      "rbc/windham",
+      "rbc/columbus",
+      "rbc/madison",
+      "rbc/miami",
+      "rbc/san-juan",
+      "rbc/longovilo",
+      "rbc/balcarce",
+      "rbc/mfuleni",
+      "rbc/jos",
+      "rbc/puertollano",
+      "rbc/valladolid",
+      "rbc/brest",
+      "rbc/dublin",
+      "rbc/courgenay",
+      "rbc/milan",
+      "rbc/pomjan",
+      "rbc/ljubljana",
+      "rbc/south-moravian",
+      "rbc/tvarleden",
+      "rbc/kaunas",
+      "rbc/moscow",
+      "rbc/perm",
+      "rbc/samara",
+      "rbc/gobustan",
+      "rbc/zallaq",
+      "rbc/dubai",
+      "rbc/bangalore",
+      "rbc/hassan",
+      "rbc/karnatka",
+      "rbc/lucknow",
+      "rbc/jinghe",
+      "rbc/krasnoyarsk",
+      "rbc/irkutsk",
+      "rbc/zhongwei",
+      "rbc/haikou",
+      "rbc/port-blair",
+      "rbc/hsinchu",
+      "rbc/taoyuan",
+      "rbc/jiaxing",
+      "rbc/jeju",
+      "rbc/gyeonggi",
+      "rbc/harbin",
+      "rbc/magadan"
+    ]
+  }
+}
