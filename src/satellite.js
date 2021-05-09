@@ -13,7 +13,7 @@ class Satellite {
   #id = null;
   #orbit = null;
   #tle = null;
-  #protocols = {};
+  #services = {};
   #broadcastPeriodMilliseconds = 5000;
 
   /**
@@ -85,33 +85,33 @@ class Satellite {
   }
 
   /**
-   * Bind a protocol to the satellite.
-   * @param {String} id - a unique string identifying the protocol.
-   * @param {Protocol} protocol - a protocol object able to receive/broadcast
+   * Bind a service to the satellite.
+   * @param {String} id - a unique string identifying the service.
+   * @param {Service} service - a service object able to receive/broadcast
    *        messages.
-   * @throw {Error} if the protocol with the given id has already been bound
+   * @throw {Error} if the service with the given id has already been bound
    *        to the satellite.
    */
-  bindProtocol(id, protocol) {
-    if (id in this.#protocols) {
-      throw Error('Protocol with id: "' + id +
+  bindService(id, service) {
+    if (id in this.#services) {
+      throw Error('Service with id: "' + id +
           '" already bound to satellite.');
     }
-    this.#protocols[id] = protocol;
-    protocol.bind(this.#send.bind(this, id));
+    this.#services[id] = service;
+    service.bind(this.#send.bind(this, id));
   }
 
   /**
    * Transmit a message to listening ground stations.
-   * This is a private function that is provided to protocol implementations
+   * This is a private function that is provided to service implementations
    * with the id already bound so as to abstract away the routing mechanism
-   * from the protocol implementation. see 'bindProtocol'
-   * @param {String} id - the protocol id of the originating message.
+   * from the service implementation. see 'bindService'
+   * @param {String} id - the service id of the originating message.
    * @param {String} body - the contents of the message.
    */
   #send(id, body) {
     const msg = {
-      protocolId: id,
+      serviceId: id,
       body: body,
     };
     this.#universe.transmitFromSatellite(this, msg);
@@ -119,37 +119,37 @@ class Satellite {
 
   /**
    * Receive a transmission from a ground station.
-   * @param {{protocolId: String, body: String}} msg - the contents of the
+   * @param {{serviceId: String, body: String}} msg - the contents of the
    *        received transmission. The format should include the id of the
-   *        protocol to route this message to and the body of the message
-   *        to pass to the protocol for processing.
+   *        service to route this message to and the body of the message
+   *        to pass to the service for processing.
    *
    */
   receive(msg) {
-    if (!('protocolId' in msg)) {
-      console.error('Corrupt message: missing protocolId');
+    if (!('serviceId' in msg)) {
+      console.error('Corrupt message: missing serviceId');
       return;
     }
 
-    const protocol = this.#protocols[msg.protocolId];
-    if (!protocol) {
-      console.error('Protocol id: "' + msg.protocolId +
+    const service = this.#services[msg.serviceId];
+    if (!service) {
+      console.error('Service id: "' + msg.serviceId +
           '" not recognized by satellite. ');
       return;
     }
-    protocol.receive(msg.body);
+    service.receive(msg.body);
   }
 
   /**
    * Periodically broadcast a message to a ground station. This mehtod is
-   * a convenience wrapper saving bound protocols from the hassle of
+   * a convenience wrapper saving bound services from the hassle of
    * implementing their own broadcast logic. Instead, the satellite assembles
-   * the periodic broadcast messages from each protocol in a centralized
+   * the periodic broadcast messages from each service in a centralized
    * fashion.
    */
   #broadcast() {
-    for (const [id, protocol] of Object.entries(this.#protocols)) {
-      const body = protocol.broadcast();
+    for (const [id, service] of Object.entries(this.#services)) {
+      const body = service.broadcast();
       if (!body) continue;
       this.#send(id, body);
     }

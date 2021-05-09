@@ -1,6 +1,6 @@
 const crypto = require('crypto');
-const BaseApi = require('./baseApi');
-const BaseProtocol = require('../protocols/baseProtocol');
+const MainClient = require('./main');
+const MainService = require('../services/main');
 const Satellite = require('../satellite');
 const GroundStation = require('../groundStation');
 const GroundStationNetwork = require('../groundStationNetwork');
@@ -9,10 +9,10 @@ const testUtils = require('../testUtils');
 
 /**
  * Setup a basic test environment with a single satellite and ground station.
- * @return {[BaseApi, Satellite, Universe]} an API object used for testing
+ * @return {[MainClient, Satellite, Universe]} an API object used for testing
  * along with supplementary objects needed to be exposed for testing.
  */
-function setupApi() {
+function setupClient() {
   const universe = testUtils.createTestUniverse();
   const sat = new Satellite(universe, 'crypto1', testUtils.ISS_TLE[0],
       testUtils.ISS_TLE[1]);
@@ -22,47 +22,47 @@ function setupApi() {
   expect(gstation.hasLineOfSight(sat)).toBe(true);
   const gsnetwork = new GroundStationNetwork('net');
   gsnetwork.addStation(gstation);
-  const baseProtocol = new BaseProtocol(universe);
-  sat.bindProtocol('base', baseProtocol);
-  return [new BaseApi(universe, gsnetwork, 'base'), sat, universe];
+  const mainService = new MainService(universe);
+  sat.bindService('main', mainService);
+  return [new MainClient(universe, gsnetwork, 'main'), sat, universe];
 }
 
 test('status', () => {
-  const [api, sat, universe] = setupApi();
+  const [client, sat, universe] = setupClient();
   const before = universe.clock().now().getTime();
   universe.clock().advance(sat.broadcastPeriod() + 1);
   const after = universe.clock().now().getTime();
-  const result = api.status();
+  const result = client.status();
   expect(result.status).toEqual('ok');
   expect(result.timestamp).toBeGreaterThan(before);
   expect(result.timestamp).toBeLessThan(after);
 });
 
 test('version', () => {
-  const [api, sat, universe] = setupApi();
+  const [client, sat, universe] = setupClient();
   const before = universe.clock().now().getTime();
   universe.clock().advance(sat.broadcastPeriod() + 1);
   const after = universe.clock().now().getTime();
-  const result = api.version();
+  const result = client.version();
   expect(result.version).not.toBe(undefined);
   expect(result.timestamp).toBeGreaterThan(before);
   expect(result.timestamp).toBeLessThan(after);
 });
 
 test('public RSA key', () => {
-  const [api, sat, universe] = setupApi();
+  const [client, sat, universe] = setupClient();
   universe.clock().advance(sat.broadcastPeriod() + 1);
-  const result = api.getPublicRsaKey();
+  const result = client.getPublicRsaKey();
   expect(result.type).toBe('public');
 });
 
 test('public random', () => {
-  const [api, sat, universe] = setupApi();
+  const [client, sat, universe] = setupClient();
   const before = universe.clock().now().getTime();
   universe.clock().advance(sat.broadcastPeriod() + 1);
   const after = universe.clock().now().getTime();
-  const publicKey = api.getPublicRsaKey();
-  const result = api.getPublicRandom();
+  const publicKey = client.getPublicRsaKey();
+  const result = client.getPublicRandom();
   expect(result.timestamp).toBeGreaterThan(before);
   expect(result.timestamp).toBeLessThan(after);
   const verify = crypto.createVerify('SHA256');
@@ -71,12 +71,12 @@ test('public random', () => {
 });
 
 test('timestamp', () => {
-  const [api, sat, universe] = setupApi();
+  const [client, sat, universe] = setupClient();
   const before = universe.clock().now().getTime();
   universe.clock().advance(sat.broadcastPeriod() + 1);
   const after = universe.clock().now().getTime();
-  const publicKey = api.getPublicRsaKey();
-  const result = api.getTimestamp();
+  const publicKey = client.getPublicRsaKey();
+  const result = client.getTimestamp();
   expect(result.timestamp).toBeGreaterThan(before);
   expect(result.timestamp).toBeLessThan(after);
   const verify = crypto.createVerify('SHA256');
@@ -85,12 +85,12 @@ test('timestamp', () => {
 });
 
 test('private random', async () => {
-  const [api, sat, universe] = setupApi();
+  const [client, sat, universe] = setupClient();
   universe.clock().advance(sat.broadcastPeriod() + 1);
-  const publicKeySatellite = api.getPublicRsaKey();
+  const publicKeySatellite = client.getPublicRsaKey();
   const key = crypto.generateKeyPairSync('rsa', {modulusLength: 2048});
   const nonce = crypto.randomBytes(64);
-  const promise = api.getPrivateRandom(key.publicKey, nonce);
+  const promise = client.getPrivateRandom(key.publicKey, nonce);
   universe.clock().advance(10);
   const result = await promise;
   const verify = crypto.createVerify('SHA256');
@@ -103,19 +103,19 @@ test('private random', async () => {
 
 test('private random timeout', async () => {
   // eslint-disable-next-line
-  const [api, ...ignored] = setupApi();
+  const [client, ...ignored] = setupClient();
   const key = crypto.generateKeyPairSync('rsa', {modulusLength: 2048});
   const nonce = crypto.randomBytes(64);
-  const promise = api.getPrivateRandom(key.publicKey, nonce, 10);
-  // not advancing the clock will cause the api call to timeout
+  const promise = client.getPrivateRandom(key.publicKey, nonce, 10);
+  // not advancing the clock will cause the client call to timeout
   await expect(promise).rejects.toThrow(PromiseTimeout.TimeoutError);
 });
 
 test('signature', async () => {
-  const [api, sat, universe] = setupApi();
+  const [client, sat, universe] = setupClient();
   universe.clock().advance(sat.broadcastPeriod() + 1);
-  const publicKeySatellite = api.getPublicRsaKey();
-  const promise = api.sign('hello', 1000);
+  const publicKeySatellite = client.getPublicRsaKey();
+  const promise = client.sign('hello', 1000);
   universe.clock().advance(10);
   const result = await promise;
   const verify = crypto.createVerify('SHA256');
@@ -125,8 +125,8 @@ test('signature', async () => {
 
 test('signature timeout', async () => {
   // eslint-disable-next-line
-  const [api, ...ignored] = setupApi();
-  const promise = api.sign('hello', 10);
-  // not advancing the clock will cause the api call to timeout
+  const [client, ...ignored] = setupClient();
+  const promise = client.sign('hello', 10);
+  // not advancing the clock will cause the client call to timeout
   await expect(promise).rejects.toThrow(PromiseTimeout.TimeoutError);
 });

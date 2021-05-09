@@ -1,11 +1,11 @@
-const Protocol = require('./Protocol');
+const Service = require('./service');
 const crypto = require('crypto');
 
 /**
- * A protocol containing the basic cryptographic primitives to be deployed
+ * A service containing the basic cryptographic primitives to be deployed
  * onboard the cryptosatellite.
  */
-class BaseProtocol extends Protocol {
+class MainService extends Service {
   #version = '0.1.0';
   #rsaKey = null;
 
@@ -15,7 +15,7 @@ class BaseProtocol extends Protocol {
   }
 
   /**
-   * Construct a base protocol object. The code here will simulate the
+   * Construct a main service object. The code here will simulate the
    * initialization step that takes place onboard the satellite once it is in
    * orbit.
    * @param {Universe} universe - a reference to the universe modeling the
@@ -47,7 +47,7 @@ class BaseProtocol extends Protocol {
   }
 
   /**
-   * Digially sign a message using the protocol private key.
+   * Digially sign a message using the service private key.
    * @param {String} m - a string message to sign.
    * @return {String} a hexadecimal encoded string containing the digitally
    *         signed SHA256 hash of the message.
@@ -105,7 +105,7 @@ class BaseProtocol extends Protocol {
   /**
    * Receive a message from a ground station.
    * This method is invoked whenever a new message is received and determined
-   * by the satellite that it is addressed to this protocol.
+   * by the satellite that it is addressed to this service.
    * @param {Object} request - the contents of the message. Can be any of the
    *        requests supported by the satellite.
    * @throw {Error} if the satellite doesn't recognize the type of the request.
@@ -121,4 +121,4 @@ class BaseProtocol extends Protocol {
   }
 }
 
-module.exports = BaseProtocol;
+module.exports = MainService;

@@ -1,26 +1,26 @@
-const Protocol = require('./protocol');
+const Service = require('./service');
 const Satellite = require('../satellite');
 const GroundStation = require('../groundStation');
 const testUtils = require('../testUtils');
 
-test('protocol is an abstract class', () => {
+test('service is an abstract class', () => {
   const universe = testUtils.createTestUniverse();
   expect(() => {
-    new Protocol(universe);
+    new Service(universe);
   }).toThrow(Error);
 });
 
-test('unbound protocol raises error if trying to send a message', () => {
-  protocol = new class extends Protocol {}();
-  expect(protocol.send).toThrow(Error);
+test('unbound service raises error if trying to send a message', () => {
+  service = new class extends Service {}();
+  expect(service.send).toThrow(Error);
 });
 
-test('bound protocol can send a message', () => {
-  protocol = new class extends Protocol {}();
-  protocol.bind(() => {
+test('bound service can send a message', () => {
+  service = new class extends Service {}();
+  service.bind(() => {
     return 'hello';
   });
-  expect(protocol.send()).toEqual('hello');
+  expect(service.send()).toEqual('hello');
 });
 
 test('bind to satellite', () => {
@@ -35,16 +35,16 @@ test('bind to satellite', () => {
   gstation.startListening((stationId, msg) => {
     receivedMessages.push(msg);
   });
-  sat.bindProtocol('id', new class extends Protocol {
+  sat.bindService('id', new class extends Service {
     // eslint-disable-next-line
     receive(body) {
       this.send('received: ' + body);
     }
   }(universe));
-  universe.transmitFromStation(gstation, {protocolId: 'id', body: 'hello'});
+  universe.transmitFromStation(gstation, {serviceId: 'id', body: 'hello'});
   universe.clock().advance(2);
   expect(receivedMessages.length).toEqual(1);
-  expect(receivedMessages[0].protocolId).toEqual('id');
+  expect(receivedMessages[0].serviceId).toEqual('id');
   expect(receivedMessages[0].body).toEqual('received: hello');
 });
 
@@ -61,7 +61,7 @@ test('broadcast called periodically', () => {
     receivedMessages.push(msg);
   });
   let x = 0;
-  sat.bindProtocol('id', new class extends Protocol {
+  sat.bindService('id', new class extends Service {
     // eslint-disable-next-line
     broadcast() {
       x += 1;

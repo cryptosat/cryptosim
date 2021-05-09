@@ -3,7 +3,7 @@ const uuid = require('uuid');
 const PromiseTimeout = require('promise-timeout');
 
 /**
- * Parse a public key into a format expected by the base protocol
+ * Parse a public key into a format expected by the main service
  * @param {string} key - a k in seralized hex format.
  * @return {KeyObject} a parsed representation of the argument.
  */
@@ -17,50 +17,50 @@ function parseKey(key) {
 }
 
 /**
- * Client for interacting the base protocol running onboard the satellite.
+ * Client for interacting the main service running onboard the satellite.
  * The class listens to satellite communication and locally caches the last
  * public broadcasts received from the satellite. The client serves the cached
  * public information so that even when the satellite is offline the clients
- * can still use the APi. For private requests, the client will keep track
+ * can still use the client. For private requests, the client will keep track
  * of the requests in flight and will match them with the appropriate response
  * when one arrives.
  */
-class BaseApi {
+class MainClient {
   #universe = null;
   #gsnetwork = null;
   #cache = {};
-  #protocolId = null;
+  #serviceId = null;
 
   /**
-   * Construct a BaseApi object. Every instance acts as a separate client.
+   * Construct a MainClient object. Every instance acts as a separate client.
    * @param {Universe} universe - a reference to the universe modeling the
    *        physical environment.
    * @param {GroundStationNetwork} gsnetwork - the network of ground stations
-   *        employed to communicate with the satellites on which the protocol
+   *        employed to communicate with the satellites on which the service
    *        runs.
-   * @param {string} protocolId - an identifier for the protocol to which
-   *        the corresponding protocol is registered in the satellite.
+   * @param {string} serviceId - an identifier for the service to which
+   *        the corresponding service is registered in the satellite.
    */
-  constructor(universe, gsnetwork, protocolId) {
+  constructor(universe, gsnetwork, serviceId) {
     this.#universe = universe;
     this.#gsnetwork = gsnetwork;
     this.#gsnetwork.startListening(this.#receive.bind(this));
-    this.#protocolId = protocolId;
+    this.#serviceId = serviceId;
   }
 
   /**
-   * Filter messages that are addressed to this protocol. Ground stations
+   * Filter messages that are addressed to this service. Ground stations
    * intercept all messages sent from the satellite, whether or not they are
-   * part of this protocol. Only messages that have the protocol ID for which
-   * the protocol was registered with the satellite are of interest to this
-   * API.
-   * @param {{protocolId: string, body: Object}} msg - a message received from
+   * part of this service. Only messages that have the service ID for which
+   * the service was registered with the satellite are of interest to this
+   * client.
+   * @param {{serviceId: string, body: Object}} msg - a message received from
    *        a satellite.
-   * @return {Object} the body of the message if the protocol ID of the message
-   *         matches the protocol ID of this API. Otherwise return undefined.
+   * @return {Object} the body of the message if the service ID of the message
+   *         matches the service ID of this client. Otherwise return undefined.
    */
-  #filterMessageForProtocol(msg) {
-    if (msg.protocolId == this.#protocolId) {
+  #filterMessageForService(msg) {
+    if (msg.serviceId == this.#serviceId) {
       return msg.body;
     }
   }
@@ -74,7 +74,7 @@ class BaseApi {
    * @param {Object} msg - the received message.
    */
   #receive(stationId, msg) {
-    const body = this.#filterMessageForProtocol(msg);
+    const body = this.#filterMessageForService(msg);
     if (body && body.status !== undefined) {
       this.#cache.status = body.status;
       this.#cache.version = body.version;
@@ -89,7 +89,7 @@ class BaseApi {
   }
 
   /**
-   * Issue a reset command to the satellite protocol. This will cause the
+   * Issue a reset command to the satellite service. This will cause the
    * satellite to generate new private keys and delete old state.
    * @param {string} password - special password required to invoke the reset
    *        procedure.
@@ -112,7 +112,7 @@ class BaseApi {
   }
 
   /**
-   * @return {{version: string, timestamp: Number}} the version of the protocol
+   * @return {{version: string, timestamp: Number}} the version of the service
    *         running onboard the satellite last reported by the satellite. The
    *         timestamp refers to the time when that last transmission was
    *         received.
@@ -127,7 +127,7 @@ class BaseApi {
 
   /**
    * @return {KeyObject} the cryptosat public RSA key last reported by the
-   *         satellite. As opposed to other methods in this API, the timestamp
+   *         satellite. As opposed to other methods in this client, the timestamp
    *         is not reported here as the public key is expected to change
    *         throughout the lifetime of the satellite.
    */
@@ -181,13 +181,13 @@ class BaseApi {
    *        received from the satellite. The resolved promise will include an
    *        object with the random generated bytes along with a signature over
    *        the bytes and the supplied nonce using the satellite's private RSA
-   *        key. If a timeout is supplied and the promise isn't fulfilled by 
+   *        key. If a timeout is supplied and the promise isn't fulfilled by
    *        the deadline a TimeoutError is thrown.
    */
   async getPrivateRandom(publicKey, nonce, timeoutAfter = null) {
     const requestId = uuid.v4();
     const request = {
-      protocolId: 'base',
+      serviceId: 'main',
       body: {
         type: 'privateRandom',
         requestId: requestId,
@@ -203,7 +203,7 @@ class BaseApi {
     let listenId;
     const promise = new Promise((resolve, reject) => {
       listenId = this.#gsnetwork.startListening((sid, msg) => {
-        const body = this.#filterMessageForProtocol(msg);
+        const body = this.#filterMessageForService(msg);
         if (body && body.requestId == requestId) {
           resolve({
             encryptedRandom: Buffer.from(body.encryptedRandom, 'hex'),
@@ -238,7 +238,7 @@ class BaseApi {
   async sign(msg, timeoutAfter = null) {
     const requestId = uuid.v4();
     const request = {
-      protocolId: 'base',
+      serviceId: 'main',
       body: {
         type: 'signature',
         requestId: requestId,
@@ -252,7 +252,7 @@ class BaseApi {
     let listenId;
     const promise = new Promise((resolve, reject) => {
       listenId = this.#gsnetwork.startListening((sid, msg) => {
-        const body = this.#filterMessageForProtocol(msg);
+        const body = this.#filterMessageForService(msg);
         if (body && body.requestId == requestId) {
           resolve({
             signature: Buffer.from(body.signature, 'hex'),
@@ -269,4 +269,4 @@ class BaseApi {
   }
 };
 
-module.exports = BaseApi;
+module.exports = MainClient;
