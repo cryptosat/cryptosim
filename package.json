@@ -1,6 +1,6 @@
 {
   "name": "cryptosim",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "simulate the operation of cryptosatellites",
   "main": "index.js",
   "repository": "git@github.com:cryptosat/simulator.git",
