@@ -21,6 +21,11 @@
   },
   "scripts": {
     "test": "jest",
-    "lint": "eslint"
-  }
+    "lint": "eslint",
+    "lib": "mkdir dist; cp -r lib/* dist/; find dist -name '*.test.js' -exec rm {} +",
+  },
+  "files": [
+    "dist/"
+  ],
+  "main": "dist/index.js"
 }
