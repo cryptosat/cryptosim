@@ -283,8 +283,8 @@
     {
       "id": "rbc/karnatka",
       "position": {
-        latutde: 12.95396,
-        longitude 77.4908529,
+        "latitude": 12.95396,
+        "longitude": 77.4908529,
         "altitude": 0
       }
     },
