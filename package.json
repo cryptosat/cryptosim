@@ -1,6 +1,6 @@
 {
   "name": "@cryptosat/cryptosim",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "simulate the operation of cryptosatellites",
   "repository": "git@github.com:cryptosat/cryptosim.git",
   "author": "Gil Shotan <gilsho@cryptosat.io>",
@@ -20,10 +20,10 @@
   },
   "scripts": {
     "test": "jest",
-    "lint": "eslint",
-    "deploy": "rm -rf dist; mkdir dist; cp -r lib dist/; find dist -name '*.test.js' -exec rm {} +; cp -r data dist/"
+    "lint": "eslint"
   },
   "files": [
-    "dist/"
+    "lib",
+    "data"
   ]
 }
