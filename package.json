@@ -1,9 +1,8 @@
 {
-  "name": "cryptosim",
-  "version": "0.1.1",
+  "name": "@cryptosat/cryptosim",
+  "version": "0.1.3",
   "description": "simulate the operation of cryptosatellites",
-  "main": "index.js",
-  "repository": "git@github.com:cryptosat/simulator.git",
+  "repository": "git@github.com:cryptosat/cryptosim.git",
   "author": "Gil Shotan <gilsho@cryptosat.io>",
   "license": "MIT",
   "dependencies": {
@@ -22,10 +21,9 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint",
-    "lib": "mkdir dist; cp -r lib/* dist/; find dist -name '*.test.js' -exec rm {} +",
+    "lib": "mkdir dist; cp -r lib/* dist/; find dist -name '*.test.js' -exec rm {} +"
   },
   "files": [
     "dist/"
-  ],
-  "main": "dist/index.js"
+  ]
 }
