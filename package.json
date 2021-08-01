@@ -1,6 +1,6 @@
 {
   "name": "@cryptosat/cryptosim",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "simulate the operation of cryptosatellites",
   "repository": "git@github.com:cryptosat/cryptosim.git",
   "author": "Gil Shotan <gilsho@cryptosat.io>",
