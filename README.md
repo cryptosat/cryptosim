@@ -6,75 +6,48 @@ This repository contains a simulation library which simulates the operation of C
 As a developer, you can learn about the cryptographic functions our satellites will provide and start integrating your project and protocols with our APIs.
 When you (and Cryptosat) are ready - you can turn the switch to start communicating with the actual satellite.
 
-## Resources
+# Installation
 
-- [CoinTelegraph article about the Cryptosat project](https://cointelegraph.com/magazine/2020/12/22/moon-man-mission-to-blast-crypto-satellite-into-orbit)
-- [Cryptosat website](https://www.cryptosat.io)
-- [Whitepaper](https://export.arxiv.org/pdf/1710.01430)
+The library is published at the yarn online package index as [`@cryptosat/cryptosim`](https://yarnpkg.com/package/@cryptosat/cryptosim). To include it in your own project run:
 
-### Available Scripts
+    yarn install @cryptosat/cryptosim
 
-In the project directory, you can run:
+# Usage
 
-### `yarn start`
+You can import the required classes from the library as needed. The snippet below demonstrates how to construct a cryptosat API client for a single satellite following the celestial orbit of the international space station. Check out the online [tutorial](https://simulator.cryptosat.io) to get started using the cryptosat API.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    const clock = new SimulatedClock(new Date());
+    clock.play();
+    const universe = new Universe(clock);
+    const ISS_TLE = [
+      '1 25544U 98067A   21027.77992426  .00003336  00000-0  68893-4 0  9991',
+      '2 25544  51.6465 317.1909 0002399 302.6503 164.1536 15.48908950266831',
+    ];
+    const sat = new Satellite(universe, 'crypto1', ISS_TLE[0], ISS_TLE[1]);
+    const gsnetwork = GroundStationNetwork.load(
+        universe, require('@cryptosat/cryptosim/data/rbcNetwork'));
+    const service = new MainService(universe);
+    sat.bindService('main', service);
+    cryptosat = new MainClient(universe, sat, gsnetwork, 'main');
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+# Development
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `yarn build`
+After cloing the directory install the project dependencies using:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    yarn install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Testing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The project uses the [jest](https://jestjs.io/) testing framework. To execute the test suite run:
 
-### `yarn eject`
+    yarn test
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Lint
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Check for lint errors with:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    yarn lint
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
