@@ -1,4 +1,4 @@
-# Cryptosat simulation ![Cryptosat logo](https://www.cryptosat.io/images/Logo.svg)
+# Cryptosat Simulator
 
 Our mission at [Cryptosat](cryptosat.io) is to build satellites that power cryptographic, blockchain and ledger applications. We believe that satellites possess unique properties that make them well suited for these tasks and by launching such computational platforms into space we can unlock new and exciting opportunities in the realm of security and crypto.
 
