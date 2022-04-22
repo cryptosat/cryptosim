@@ -6,6 +6,7 @@
   "author": "Gil Shotan <gilsho@cryptosat.io>",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "promise-timeout": "^1.3.0",
     "satellite.js": "^4.1.3",
     "tweetnacl": "^1.0.3",
