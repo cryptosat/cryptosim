@@ -15,5 +15,6 @@
         "@typescript-eslint"
     ],
     "rules": {
-    }
+    },
+    "ignorePatterns": ["sandbox-sdk"]
 }
