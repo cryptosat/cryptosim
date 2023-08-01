@@ -29,14 +29,14 @@ var TimestampResponse = /*#__PURE__*/function () {
     _classCallCheck(this, TimestampResponse);
   }
   _createClass(TimestampResponse, [{
-    key: "getTimestampMs",
-    value: function getTimestampMs() {
-      return this.timestampMs;
+    key: "getTimestamp",
+    value: function getTimestamp() {
+      return this.timestamp;
     }
   }, {
-    key: "setTimestampMs",
-    value: function setTimestampMs(timestampMs) {
-      this.timestampMs = timestampMs;
+    key: "setTimestamp",
+    value: function setTimestamp(timestamp) {
+      this.timestamp = timestamp;
     }
   }, {
     key: "getSignature",
@@ -53,7 +53,7 @@ var TimestampResponse = /*#__PURE__*/function () {
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new TimestampResponse();
-        if (data.hasOwnProperty('timestamp_ms')) obj.timestampMs = _ApiClient.ApiClient.convertToType(data['timestamp_ms'], 'Number');
+        if (data.hasOwnProperty('timestamp')) obj.timestamp = _ApiClient.ApiClient.convertToType(data['timestamp'], 'Number');
         if (data.hasOwnProperty('signature')) obj.signature = _ApiClient.ApiClient.convertToType(data['signature'], 'String');
       }
       return obj;
@@ -62,5 +62,5 @@ var TimestampResponse = /*#__PURE__*/function () {
   return TimestampResponse;
 }();
 exports.TimestampResponse = TimestampResponse;
-TimestampResponse.prototype.timestampMs = undefined;
+TimestampResponse.prototype.timestamp = undefined;
 TimestampResponse.prototype.signature = undefined;

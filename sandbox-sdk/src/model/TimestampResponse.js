@@ -21,20 +21,20 @@ export class TimestampResponse {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new TimestampResponse();
-      if (data.hasOwnProperty('timestamp_ms'))
-        obj.timestampMs = ApiClient.convertToType(data['timestamp_ms'], 'Number');
+      if (data.hasOwnProperty('timestamp'))
+        obj.timestamp = ApiClient.convertToType(data['timestamp'], 'Number');
       if (data.hasOwnProperty('signature'))
         obj.signature = ApiClient.convertToType(data['signature'], 'String');
     }
     return obj;
   }
 
-  getTimestampMs() {
-    return this.timestampMs;
+  getTimestamp() {
+    return this.timestamp;
   }
 
-  setTimestampMs(timestampMs) {
-    this.timestampMs = timestampMs;
+  setTimestamp(timestamp) {
+    this.timestamp = timestamp;
   }
 
   getSignature() {
@@ -47,7 +47,7 @@ export class TimestampResponse {
 
 }
 
-TimestampResponse.prototype.timestampMs = undefined;
+TimestampResponse.prototype.timestamp = undefined;
 
 TimestampResponse.prototype.signature = undefined;
 
